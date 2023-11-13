@@ -1,16 +1,16 @@
 package domeniu;
 import com.sun.tools.javac.Main;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
-class Inchiriere extends Entitate
+public class Inchiriere extends Entitate
 {
     Masina masina;
-    Date dataInceput;
-    Date dataSfarsit;
+    LocalDate dataInceput;
+    LocalDate dataSfarsit;
 
-    public Inchiriere(int id, Masina masina, Date dataInceput, Date dataSfarsit)
+    public Inchiriere(int id, Masina masina, LocalDate dataInceput, LocalDate dataSfarsit)
     {
         super(id);
         this.masina=masina;
@@ -18,23 +18,39 @@ class Inchiriere extends Entitate
         this.dataSfarsit=dataSfarsit;
     }
 
-    public Date getDataInceput()
+    public Masina getMasina()
+    {
+        return masina;
+    }
+
+    public void setMasina(Masina masina)
+    {
+        this.masina=masina;
+    }
+    public LocalDate getDataInceput()
     {
         return dataInceput;
     }
-    public Date getDataSfarsit()
+    public LocalDate getDataSfarsit()
     {
         return dataSfarsit;
     }
 
-    public void setDataInceput(Date dataInceput)
+    public void setDataInceput(LocalDate dataInceput)
     {
         this.dataInceput=dataInceput;
     }
 
-    public void setDataSfarsit(Date dataSfarsit)
+    public void setDataSfarsit(LocalDate dataSfarsit)
     {
         this.dataSfarsit=dataSfarsit;
     }
 
+
+    @Override
+    public String toString()
+    {
+        return id + "," + masina + ","
+                + dataInceput + "," + dataSfarsit;
+    }
 }

@@ -1,6 +1,6 @@
 package domeniu;
 
-class Masina extends Entitate
+public class Masina extends Entitate
 {
     String marca;
     String model;
@@ -37,5 +37,14 @@ class Masina extends Entitate
     {
         this.model = model;
     }
+
+    @Override
+    public String toString()
+    {
+        return id +"," + marca + "," + model;
+    }
+
 }
+
+
 
