@@ -1,8 +1,6 @@
 package repository;
 
 import domeniu.Entitate;
-import domeniu.Inchiriere;
-import domeniu.Masina;
 
 import java.io.IOException;
 import java.util.*;

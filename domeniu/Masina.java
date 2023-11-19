@@ -1,7 +1,11 @@
 package domeniu;
 
-public class Masina extends Entitate
-{
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Masina extends Entitate implements Serializable {
+
+    private static final long serialVersionUID = 1000L;
     String marca;
     String model;
 

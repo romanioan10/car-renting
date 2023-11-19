@@ -28,8 +28,7 @@ public class FileRepository<T extends Entitate> extends MemoryRepository<T> impl
         }
     }
 
-    public void add(T entitate) throws DuplicateEntityException, IOException
-    {
+    public void add(T entitate) throws DuplicateEntityException, IOException {
         super.add(entitate);
         Writer wr = new FileWriter(this.fileName, true);
         wr.write(String.valueOf(entitate));

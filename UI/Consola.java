@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Consola
@@ -37,7 +36,7 @@ public class Consola
         System.out.println("0. Iesire");
     }
 
-    public void runMenu() throws DuplicateEntityException, IOException {
+    public void runMenu() throws DuplicateEntityException, IOException{
         while (true)
         {
             printMenu();
