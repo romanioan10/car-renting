@@ -3,3 +3,4 @@
 3,audi,a4
 4,nissan,qashqai
 5,lada,niva
+6,mazda,5

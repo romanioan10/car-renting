@@ -1,3 +1,4 @@
+import Teste.TestAll;
 import UI.Consola;
 import domeniu.Inchiriere;
 import domeniu.InchiriereFactory;
@@ -12,10 +13,13 @@ import service.MasinaService;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 
 public class main
 {
-    public static void main(String[] args) throws DuplicateEntityException, IOException {
+    public static void main(String[] args) throws DuplicateEntityException, IOException, ParseException {
+        TestAll testAll = new TestAll();
+        testAll.testAll();
 //        IRepository<Masina> repositoryMasina = new MemoryRepository<>();
         IRepository<Masina> repositoryMasina = new FileRepository<>("masini.txt", new MasinaFactory());
 //        IRepository<Inchiriere> repositoryInchiriere = new MemoryRepository<>();

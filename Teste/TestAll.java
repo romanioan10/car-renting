@@ -1,0 +1,33 @@
+package Teste;
+import org.junit.Test;
+import repository.DuplicateEntityException;
+
+import java.io.IOException;
+import java.text.ParseException;
+
+public class TestAll
+{
+    @Test
+    public void testAll() throws DuplicateEntityException, ParseException, IOException {
+        TestInchiriere testInchiriere = new TestInchiriere();
+        testInchiriere.getGetteri();
+        testInchiriere.getSetteri();
+        TestMasina testMasina = new TestMasina();
+        testMasina.testGetteri();
+        testMasina.testSetteri();
+        TestRepo testRepo = new TestRepo();
+        testRepo.testAdd();
+        testRepo.testFind();
+        testRepo.testRemove();
+        TestServiceMasini testServiceMasini = new TestServiceMasini();
+        testServiceMasini.testAdd();
+        testServiceMasini.testModify();
+        testServiceMasini.testReadMasina();
+        testServiceMasini.testRemove();
+        TestServiceInchirieri testServiceInchirieri = new TestServiceInchirieri();
+        testServiceInchirieri.testAdd();
+        testServiceInchirieri.testModify();
+        testServiceInchirieri.testRemove();
+        testServiceInchirieri.testReadInchiriere();
+    }
+}

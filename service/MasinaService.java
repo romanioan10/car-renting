@@ -17,6 +17,11 @@ public class MasinaService
         this.repository=repository;
     }
 
+    public int size()
+    {
+        return repository.size();
+    }
+
     public void add(int id, String marca, String model) throws DuplicateEntityException, IOException {
         repository.add(new Masina(id, marca, model));
     }

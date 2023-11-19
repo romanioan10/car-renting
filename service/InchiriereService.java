@@ -18,6 +18,11 @@ public class InchiriereService
         this.repository=repository;
     }
 
+    public int size()
+    {
+        return repository.size();
+    }
+
     public void add(int id, Masina masina, LocalDate dataInceput, LocalDate dataSfarsit) throws DuplicateEntityException, IOException {
         repository.add(new Inchiriere(id, masina, dataInceput, dataSfarsit));
     }

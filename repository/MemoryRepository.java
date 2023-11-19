@@ -10,6 +10,10 @@ import java.util.*;
 public class MemoryRepository<T extends Entitate> implements IRepository<T>
 {
 
+    public int size()
+    {
+        return entitati.size();
+    }
     List<T> entitati =  new ArrayList<T>();
     @Override
     public void add(T entitate) throws DuplicateEntityException, IOException {
