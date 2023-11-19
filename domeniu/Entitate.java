@@ -1,6 +1,11 @@
 package domeniu;
 
-public abstract class Entitate {
+import java.io.Serializable;
+
+public abstract class Entitate implements Serializable {
+
+    private static final long serialVersionUID = 1000L;
+
     protected int id;
 
 

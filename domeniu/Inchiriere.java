@@ -1,11 +1,13 @@
 package domeniu;
 import com.sun.tools.javac.Main;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Inchiriere extends Entitate
-{
+public class Inchiriere extends Entitate implements Serializable {
+
+    private static final long serialVersionUID = 1000L;
     Masina masina;
     LocalDate dataInceput;
     LocalDate dataSfarsit;
