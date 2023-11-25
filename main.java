@@ -1,9 +1,6 @@
 import Teste.TestAll;
 import UI.Consola;
-import domeniu.Inchiriere;
-import domeniu.InchiriereFactory;
-import domeniu.Masina;
-import domeniu.MasinaFactory;
+import domeniu.*;
 import repository.*;
 import service.InchiriereService;
 import service.MasinaService;
@@ -11,18 +8,32 @@ import service.MasinaService;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Objects;
 
 public class main
 {
     public static void main(String[] args) throws DuplicateEntityException, IOException, ParseException {
        TestAll testAll = new TestAll();
        testAll.testAll();
-//        IRepository<Masina> repositoryMasina = new MemoryRepository<>();
-//       IRepository<Masina> repositoryMasina = new FileRepository<>("masini.txt", new MasinaFactory());
-       IRepository<Masina> repositoryMasina = new BinaryFileRepository<>("masini.bin");
-//        IRepository<Inchiriere> repositoryInchiriere = new MemoryRepository<>();
-//       IRepository<Inchiriere> repositoryInchiriere = new FileRepository<>("inchirieri.txt", new InchiriereFactory());
-       IRepository<Inchiriere> repositoryInchiriere = new BinaryFileRepository<>("inchirieri.bin");
+        IEntityFactory<Masina> masinaFactory = new MasinaFactory();
+        IEntityFactory<Inchiriere> inchiriereFactory = new InchiriereFactory();
+        IRepository<Masina> repositoryMasina= new MemoryRepository<>();
+        IRepository<Inchiriere> repositoryInchiriere = new MemoryRepository<>();
+
+
+        Settings setari = Settings.getInstance();
+        if (Objects.equals(setari.getRepoType(), "memory")) {
+            repositoryMasina = new MemoryRepository<>();
+            repositoryInchiriere = new MemoryRepository<>();
+        }
+        if (Objects.equals(setari.getRepoType(), "text")){
+            repositoryMasina = new FileRepository<>(setari.getRepoMasina(), masinaFactory);
+            repositoryInchiriere = new FileRepository<>(setari.getRepoInchiriere(), inchiriereFactory);
+        }
+        if (Objects.equals(setari.getRepoType(), "binary")){
+            repositoryMasina = new BinaryFileRepository<>(setari.getRepoMasina());
+            repositoryInchiriere = new BinaryFileRepository<>(setari.getRepoInchiriere());
+        }
 
         MasinaService masinaService = new MasinaService(repositoryMasina);
         InchiriereService inchiriereService = new InchiriereService(repositoryInchiriere);

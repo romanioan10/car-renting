@@ -2,6 +2,7 @@ package repository;
 
 import domeniu.Entitate;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -28,10 +29,31 @@ public class MemoryRepository<T extends Entitate> implements IRepository<T>
         entitati.add(entitate);
     }
 
+    @Override
+    public void modify(int id, T entitate) throws IOException {
+        if(entitate == null)
+        {
+            throw new IllegalArgumentException("entitatea nu poate fi null");
+        }
+
+        if(find(entitate.getId()) == null)
+        {
+            throw new IllegalArgumentException("entitatea nu exista");
+        }
+
+        for(int i=0; i<entitati.size(); i++)
+        {
+            if(entitati.get(i).getId()==id)
+            {
+                entitati.set(i, entitate);
+                break;
+            }
+        }
+    }
+
 
     @Override
-    public void remove(int id)
-    {
+    public void remove(int id) throws IOException {
 
         boolean ok = entitati.removeIf(e -> e.getId()==id);
 //        for(T entitate: entitati)

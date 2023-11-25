@@ -26,8 +26,8 @@ public class TestServiceMasini
         MemoryRepository<Masina> masinaMemoryRepository = new MemoryRepository<Masina>();
         MasinaService masinaService = new MasinaService(masinaMemoryRepository);
         masinaService.add(1, "audi", "a4");
-        masinaService.modify(1,"bmw", "m3");
         Masina masina = new Masina(1, "bmw", "m3");
+        masinaService.modify(1,masina);
         Masina masinaVerif = masinaService.readMasina(1);
         assert masinaVerif == masina;
     }

@@ -41,10 +41,9 @@ public class TestServiceInchirieri
         LocalDate dataSfarsitNou = LocalDate.of(2024,10,10);
 
         inchiriereService.add(1, masina, dataInceput, dataSfarsit);
-
-        inchiriereService.modify(1, masinaNou, dataInceputNou, dataSfarsitNou);
-
         Inchiriere inchiriere = new Inchiriere(1, masinaNou, dataInceputNou, dataSfarsitNou);
+
+        inchiriereService.modify(1, inchiriere);
 
         Inchiriere verif = inchiriereService.readInchiriere(1);
 

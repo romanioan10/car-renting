@@ -27,7 +27,7 @@ public class FileRepository<T extends Entitate> extends MemoryRepository<T> impl
             super.add(entity);
         }
     }
-
+    @Override
     public void add(T entitate) throws DuplicateEntityException, IOException {
         super.add(entitate);
         Writer wr = new FileWriter(this.fileName, true);
@@ -35,6 +35,43 @@ public class FileRepository<T extends Entitate> extends MemoryRepository<T> impl
         wr.write("\r\n");
         wr.flush();
         wr.close();
+    }
+    @Override
+    public void modify(int id, T entitate) throws IOException {
+        super.modify(id, entitate);
+        File file = new File(fileName);
+        Scanner scanner = new Scanner(file);
+        String fileContent = "";
+        while(scanner.hasNextLine())
+        {
+            String line = scanner.nextLine();
+            if(line.startsWith(String.valueOf(id)))
+            {
+                line = String.valueOf(entitate);
+            }
+            fileContent += line + "\r\n";
+        }
+        FileWriter writer = new FileWriter(file);
+        writer.write(fileContent);
+        writer.close();
+    }
+    @Override
+    public void remove(int id) throws IOException {
+        super.remove(id);
+        File file = new File(fileName);
+        Scanner scanner = new Scanner(file);
+        String fileContent = "";
+        while(scanner.hasNextLine())
+        {
+            String line = scanner.nextLine();
+            if(!line.startsWith(String.valueOf(id)))
+            {
+                fileContent += line + "\r\n";
+            }
+        }
+        FileWriter writer = new FileWriter(file);
+        writer.write(fileContent);
+        writer.close();
     }
 
 

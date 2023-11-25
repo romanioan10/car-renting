@@ -26,20 +26,26 @@ public class MasinaService
         repository.add(new Masina(id, marca, model));
     }
 
-    public void modify(int id, String marcaNoua, String modelNou)
+//    public void modify(int id, String marcaNoua, String modelNou)
+//    {
+//        Masina masina = readMasina(id);
+//        if(readMasina(id) !=null)
+//        {
+//            masina.setMarca(marcaNoua);
+//            masina.setModel(modelNou);
+//        }
+//        else
+//            throw new IllegalArgumentException("masina nu exista");
+//}
+
+    public void modify(int id, Masina masinaNoua) throws IOException
     {
-        Masina masina = readMasina(id);
-        if(readMasina(id) !=null)
-        {
-            masina.setMarca(marcaNoua);
-            masina.setModel(modelNou);
-        }
+        if(readMasina(id) != null)
+            repository.modify(id, masinaNoua);
         else
             throw new IllegalArgumentException("masina nu exista");
     }
-
-    public void remove(int id)
-    {
+    public void remove(int id) throws IOException {
         repository.remove(id);
     }
 

@@ -149,7 +149,8 @@ public class Consola
                         String marca = scanner.next();
                         System.out.println("Dati un model nou");
                         String model = scanner.next();
-                        masinaService.modify(id, marca, model);
+                        Masina masina = new Masina(id, marca, model);
+                        masinaService.modify(id, masina);
                     }
                     catch (Exception ex)
                     {
@@ -214,7 +215,10 @@ public class Consola
                             int idMasina = scanner.nextInt();
                             Masina masina = masinaService.readMasina(idMasina);
                             if (!masiniSuprapuse.contains(masina))
-                                inchiriereService.modify(id, masina, dataInceput, dataSfarsit);
+                            {
+                                Inchiriere inchiriere = new Inchiriere(id, masina, dataInceput, dataSfarsit);
+                                inchiriereService.modify(id, inchiriere);
+                            }
 
                         }
                     }

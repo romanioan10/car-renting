@@ -1,0 +1,3 @@
+repo_type text
+Masina masini.txt
+Inchiriere inchirieri.txt

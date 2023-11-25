@@ -36,6 +36,32 @@ public class BinaryFileRepository<T extends Entitate & Serializable> implements 
     }
 
     @Override
+    public void modify(int id, T entity) throws IOException
+    {
+        List<T> entities = loadEntities();
+        if (entity == null)
+        {
+            throw new IllegalArgumentException("Entitatea nu poate fi null");
+        }
+
+        if (find(entity.getId()) == null)
+        {
+            throw new IllegalArgumentException("Entitatea nu există");
+        }
+
+        for (int i = 0; i < entities.size(); i++)
+        {
+            if (entities.get(i).getId() == id)
+            {
+                entities.set(i, entity);
+                break;
+            }
+        }
+
+        saveEntities(entities);
+    }
+
+    @Override
     public void remove(int id)
     {
         List<T> entities = loadEntities();
