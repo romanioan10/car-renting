@@ -120,4 +120,8 @@ public class BinaryFileRepository<T extends Entitate & Serializable> implements 
     {
         return new ArrayList<T>(loadEntities()).iterator();
     }
+
+    public void setAll(Collection<T> entitati)
+    {;
+    }
 }

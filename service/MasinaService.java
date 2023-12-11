@@ -28,7 +28,7 @@
 
     //    public void modify(int id, String marcaNoua, String modelNou)
     //    {
-    //        Masina masina = readMasina(id);
+    //        domeniu.Masina masina = readMasina(id);
     //        if(readMasina(id) !=null)
     //        {
     //            masina.setMarca(marcaNoua);

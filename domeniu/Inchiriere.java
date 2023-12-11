@@ -1,9 +1,7 @@
 package domeniu;
-import com.sun.tools.javac.Main;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Inchiriere extends Entitate implements Serializable {
 

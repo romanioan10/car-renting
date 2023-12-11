@@ -8,6 +8,8 @@ import repository.IRepository;
 import java.io.IOException;
 import java.util.Collection;
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class InchiriereService
 {
@@ -27,9 +29,9 @@ public class InchiriereService
         repository.add(new Inchiriere(id, masina, dataInceput, dataSfarsit));
     }
 
-//    public void modify(int id, Masina masinaNou, LocalDate dataInceputNou, LocalDate dataSfarsitNou) throws DuplicateEntityException
+//    public void modify(int id, domeniu.Masina masinaNou, LocalDate dataInceputNou, LocalDate dataSfarsitNou) throws DuplicateEntityException
 //    {
-//        Inchiriere inchiriere = readInchiriere(id);
+//        domeniu.Inchiriere inchiriere = readInchiriere(id);
 //        if(readInchiriere(id) != null)
 //        {
 //            inchiriere.setMasina(masinaNou);
@@ -66,6 +68,24 @@ public class InchiriereService
     public Collection<Inchiriere> getAll()
     {
         return repository.getAll();
+    }
+
+    public void afisareMasiniCuNrInchirieri()
+    {
+        Collection<Inchiriere> inchirieri = getAll();
+        Map<Masina, Long> masiniCuNrInchirieri = inchirieri.stream()
+                .collect(Collectors.groupingBy(Inchiriere::getMasina, Collectors.counting()));
+
+        masiniCuNrInchirieri.entrySet().stream()
+                .collect(Collectors.toMap(entry -> entry.getKey().getMarca() + ", " + entry.getKey().getModel(),
+                        Map.Entry::getValue, Long::sum)) // combinarea valorilor duplicate
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .forEach(entry -> {
+                    String masina = entry.getKey();
+                    Long numarInchirieri = entry.getValue();
+                    System.out.println(masina + " - Numar total de inchirieri: " + numarInchirieri);
+                });
     }
 
 }

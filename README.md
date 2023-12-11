@@ -5,7 +5,7 @@ Dezvoltați o implementare Java bazată pe principiile arhitecturii stratificate
 ## Cerințe non-funcționale
 - Stratificarea aplicației va include **domeniul**, **repository**-ul, **serviciile**, și **interfața cu utilizatorul**. 
 -  Definiți operațiile din **repository** folosind o interfață sau clasă abstractă. Implementarea de repository trebuie să fie generică.
--  Instanțiați câte un repository generic pentru fiecare entitate definită în cadrul programului (ex. `Repository<Masina>`, `Repository<Inchiriere>`). Adăugați cel puțin câte 5 instanțe în fiecare repository direct din codul sursă.
+-  Instanțiați câte un repository generic pentru fiecare entitate definită în cadrul programului (ex. `Repository<domeniu.Masina>`, `Repository<domeniu.Inchiriere>`). Adăugați cel puțin câte 5 instanțe în fiecare repository direct din codul sursă.
 -  Toate entitățile din domeniul problemei trebuie să fie unic identificabile. Toate entitățile vor fi derivate din aceeași clasă abstractă sau interfață, fiecare obiect având un `ID` unic.
 
 ## Cerințe pentru următorul laborator

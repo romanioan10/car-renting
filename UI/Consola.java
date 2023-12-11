@@ -8,9 +8,8 @@ import service.MasinaService;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Consola
 {
@@ -31,6 +30,9 @@ public class Consola
         System.out.println("4. Adaugare inchiriere");
         System.out.println("5. Modificare inchiriere");
         System.out.println("6. Stergere inchiriere");
+        System.out.println("7. Cele mai des inchiriate masini");
+        System.out.println("8. Numarul de inchirieri efectuate in fiecare luna");
+        System.out.println("9. Masinile care au fost inchiriate cel mai mult timp");
         System.out.println("m. Afisare masini");
         System.out.println("i. Afisare inchirieri");
         System.out.println("0. Iesire");
@@ -240,6 +242,57 @@ public class Consola
                     {
                         System.out.println(ex.toString());
                     }
+                    break;
+                }
+                case "7":
+                {
+                    Collection<Inchiriere> inchirieri = inchiriereService.getAll();
+                    Map<Masina, Long> masiniCuNrInchirieri = inchirieri.stream()
+                            .collect(Collectors.groupingBy(Inchiriere::getMasina, Collectors.counting()));
+
+                    masiniCuNrInchirieri.entrySet().stream()
+                            .collect(Collectors.toMap(entry -> entry.getKey().getMarca() + ", " + entry.getKey().getModel(),
+                                    Map.Entry::getValue, Long::sum)) // combinarea valorilor duplicate
+                            .entrySet().stream()
+                            .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                            .forEach(entry -> {
+                                String masina = entry.getKey();
+                                Long numarInchirieri = entry.getValue();
+                                System.out.println(masina + " - Numar total de inchirieri: " + numarInchirieri);
+                            });
+                    break;
+                }
+                case "8":
+                {
+                    Collection<Inchiriere> inchirieri = inchiriereService.getAll();
+                    Map<Integer, Long> numarInchirieriPeLuna = inchirieri.stream()
+                            .collect(Collectors.groupingBy(inchiriere -> inchiriere.getDataInceput().getMonthValue(), Collectors.counting()));
+
+                    numarInchirieriPeLuna.entrySet().stream()
+                            .sorted(Map.Entry.<Integer, Long>comparingByKey())
+                            .forEach(entry -> {
+                                Integer luna = entry.getKey();
+                                Long numarInchirieri = entry.getValue();
+                                System.out.println("Luna " + luna + " - Numar total de inchirieri: " + numarInchirieri);
+                            });
+                    break;
+                }
+                case "9":
+                {
+                    Collection<Inchiriere> inchirieri = inchiriereService.getAll();
+                    Map<Masina, Long> masiniCuTimpInchiriat = inchirieri.stream()
+                            .collect(Collectors.groupingBy(Inchiriere::getMasina, Collectors.summingLong(inchiriere -> inchiriere.getDataSfarsit().toEpochDay() - inchiriere.getDataInceput().toEpochDay())));
+
+                    masiniCuTimpInchiriat.entrySet().stream()
+                            .collect(Collectors.toMap(entry -> entry.getKey().getMarca() + ", " + entry.getKey().getModel(),
+                                    Map.Entry::getValue, Long::sum)) // combinarea valorilor duplicate
+                            .entrySet().stream()
+                            .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                            .forEach(entry -> {
+                                String masina = entry.getKey();
+                                Long timpInchiriat = entry.getValue();
+                                System.out.println(masina + " - Timp total de inchiriere: " + timpInchiriat + " zile");
+                            });
                     break;
                 }
                 case "0":

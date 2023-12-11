@@ -2,7 +2,6 @@ package repository;
 
 import domeniu.Entitate;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -14,6 +13,7 @@ public class MemoryRepository<T extends Entitate> implements IRepository<T>
         return entitati.size();
     }
     List<T> entitati =  new ArrayList<T>();
+
     @Override
     public void add(T entitate) throws DuplicateEntityException, IOException {
         if(entitate == null)
@@ -88,6 +88,11 @@ public class MemoryRepository<T extends Entitate> implements IRepository<T>
     @Override
     public Iterator<T> iterator() {
         return new ArrayList<T>(entitati).iterator();
+    }
+
+    public void setAll(Collection<T> entitati)
+    {
+        this.entitati = new ArrayList<T>(entitati);
     }
 
 }

@@ -1,7 +1,6 @@
 package domeniu;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Masina extends Entitate implements Serializable {
 

@@ -30,7 +30,7 @@ public class Settings {
     }
 
     private static Properties loadSettings() {
-        try (FileReader fr = new FileReader("settings.properties.txt")) {
+        try (FileReader fr = new FileReader("settings.properties")) {
             Properties settings = new Properties();
             settings.load(fr);
             return settings;
@@ -41,7 +41,7 @@ public class Settings {
 
     public static synchronized Settings getInstance() {
         Properties properties = loadSettings();
-        instance = new Settings(properties.getProperty("repo_type"), properties.getProperty("Masina"), properties.getProperty("Inchiriere"));
+        instance = new Settings(properties.getProperty("repo_type"), properties.getProperty("domeniu.Masina"), properties.getProperty("domeniu.Inchiriere"));
         return instance;
     }
 }
