@@ -7,6 +7,7 @@ import repository.DuplicateEntityException;
 import repository.MemoryRepository;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -16,7 +17,7 @@ public class TestRepo
     }
 
     @Test
-    public void testAdd() throws ParseException, DuplicateEntityException, IOException {
+    public void testAdd() throws ParseException, DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Masina> masinaMemoryRepository = new MemoryRepository<Masina>();
         MemoryRepository<Inchiriere> inchiriereMemoryRepository = new MemoryRepository<Inchiriere>();
         Masina masina = new Masina(1, "audi", "a4");
@@ -39,7 +40,7 @@ public class TestRepo
     }
 
     @Test
-    public void testRemove() throws ParseException, DuplicateEntityException, IOException {
+    public void testRemove() throws ParseException, DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Masina> masinaMemoryRepository = new MemoryRepository<Masina>();
         MemoryRepository<Inchiriere> inchiriereMemoryRepository = new MemoryRepository<Inchiriere>();
         Masina masina = new Masina(1, "audi", "a4");
@@ -60,7 +61,7 @@ public class TestRepo
         assert inchiriereMemoryRepository.size() == 0;
     }
     @Test
-    public void testFind() throws ParseException, DuplicateEntityException, IOException {
+    public void testFind() throws ParseException, DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Masina> masinaMemoryRepository = new MemoryRepository<Masina>();
         MemoryRepository<Inchiriere> inchiriereMemoryRepository = new MemoryRepository<Inchiriere>();
         Masina masina = new Masina(1, "audi", "a4");
@@ -79,7 +80,7 @@ public class TestRepo
 
     }
     @Test
-    public void testModify() throws ParseException, DuplicateEntityException, IOException {
+    public void testModify() throws ParseException, DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Masina> masinaMemoryRepository = new MemoryRepository<Masina>();
         MemoryRepository<Inchiriere> inchiriereMemoryRepository = new MemoryRepository<Inchiriere>();
         Masina masina = new Masina(1, "audi", "a4");

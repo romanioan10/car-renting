@@ -73,7 +73,7 @@ public class InchirieriDbRepository extends MemoryRepository<Inchiriere>
         }
     }
 
-    public void add(Inchiriere entitate) throws DuplicateEntityException, IOException {
+    public void add(Inchiriere entitate) throws  IOException {
         if(entitate == null)
         {
             throw new IllegalArgumentException("entitatea nu poate fi null");
@@ -81,7 +81,7 @@ public class InchirieriDbRepository extends MemoryRepository<Inchiriere>
 
         if(find(entitate.getId()) != null)
         {
-            throw new DuplicateEntityException("entitatea deja exista");
+            throw new IllegalArgumentException("entitatea deja exista");
         }
 
         try(PreparedStatement stmt = connection.prepareStatement("INSERT INTO Inchirieri (id, idMasina, numeMarca, numeModel, dataInceput, dataSfarsit) VALUES (?, ?, ?, ?, ?, ?);"))

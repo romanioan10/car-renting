@@ -8,6 +8,7 @@ import repository.MemoryRepository;
 import service.InchiriereService;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class TestServiceInchirieri
@@ -16,7 +17,7 @@ public class TestServiceInchirieri
     }
 
     @Test
-    public void testAdd() throws DuplicateEntityException, IOException {
+    public void testAdd() throws DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Inchiriere> memoryRepository = new MemoryRepository<Inchiriere>();
         InchiriereService inchiriereService = new InchiriereService(memoryRepository);
 
@@ -29,7 +30,7 @@ public class TestServiceInchirieri
     }
     @Test
 
-    public void testModify() throws DuplicateEntityException, IOException {
+    public void testModify() throws DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Inchiriere> memoryRepository = new MemoryRepository<Inchiriere>();
         InchiriereService inchiriereService = new InchiriereService(memoryRepository);
 
@@ -50,7 +51,7 @@ public class TestServiceInchirieri
         assert inchiriere == verif;
     }
 
-    public void testRemove() throws DuplicateEntityException, IOException {
+    public void testRemove() throws DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Inchiriere> memoryRepository = new MemoryRepository<Inchiriere>();
         InchiriereService inchiriereService = new InchiriereService(memoryRepository);
 
@@ -63,7 +64,7 @@ public class TestServiceInchirieri
         assert inchiriereService.size() == 0;
     }
 
-    public void testReadInchiriere() throws DuplicateEntityException, IOException {
+    public void testReadInchiriere() throws DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Inchiriere> memoryRepository = new MemoryRepository<Inchiriere>();
         InchiriereService inchiriereService = new InchiriereService(memoryRepository);
 

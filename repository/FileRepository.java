@@ -4,6 +4,7 @@ import domeniu.Entitate;
 import domeniu.IEntityFactory;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class FileRepository<T extends Entitate> extends MemoryRepository<T> implements IRepository<T>
@@ -11,13 +12,13 @@ public class FileRepository<T extends Entitate> extends MemoryRepository<T> impl
     private String fileName;
     private IEntityFactory<T> entityFactory;
 
-    public FileRepository(String fileName, IEntityFactory<T> entityFactory) throws IOException, DuplicateEntityException {
+    public FileRepository(String fileName, IEntityFactory<T> entityFactory) throws IOException, DuplicateEntityException, SQLException {
         this.fileName = fileName;
         this.entityFactory = entityFactory;
         readFromFile();
     }
 
-    private void readFromFile() throws IOException, DuplicateEntityException {
+    private void readFromFile() throws IOException, DuplicateEntityException, SQLException {
         File file = new File(fileName);
         Scanner scanner = new Scanner(file);
         while(scanner.hasNextLine())
@@ -28,7 +29,7 @@ public class FileRepository<T extends Entitate> extends MemoryRepository<T> impl
         }
     }
     @Override
-    public void add(T entitate) throws DuplicateEntityException, IOException {
+    public void add(T entitate) throws IOException, SQLException {
         super.add(entitate);
         Writer wr = new FileWriter(this.fileName, true);
         wr.write(String.valueOf(entitate));

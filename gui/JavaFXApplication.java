@@ -74,11 +74,22 @@ public class JavaFXApplication extends Application
         root.getChildren().add(gridPane);
 
         buttonAdauga.setOnAction(event -> {
-            try {
+            try
+            {
+                IRepository<domeniu.Masina> dbrepositoryMasina = new MasiniDbRepository();
+
+                ((MasiniDbRepository) dbrepositoryMasina).connectToDb();
+
+                repositoryMasina.setAll(dbrepositoryMasina.getAll());
+
                 masinaService.add(Integer.parseInt(textFieldId.getText()), textFieldMarca.getText(), textFieldModel.getText());
                 masini.setAll(masinaService.getAll());
-            } catch (DuplicateEntityException | IOException e) {
-                e.printStackTrace();
+            } catch (Exception e)
+            {
+                Alert errorPopUp = new Alert(Alert.AlertType.ERROR);
+                errorPopUp.setTitle("ERROR");
+                errorPopUp.setContentText(e.getMessage());
+                errorPopUp.show();
             }
         });
 
@@ -92,21 +103,30 @@ public class JavaFXApplication extends Application
 
                 masinaService.modify(Integer.parseInt(textFieldId.getText()), new Masina(Integer.parseInt(textFieldId.getText()), textFieldMarca.getText(), textFieldModel.getText()));
                 masini.setAll(masinaService.getAll());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (DuplicateEntityException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e)
+            {
+                Alert errorPopUp = new Alert(Alert.AlertType.ERROR);
+                errorPopUp.setTitle("ERROR");
+                errorPopUp.setContentText(e.getMessage());
+                errorPopUp.show();
             }
         });
 
+
         buttonSterge.setOnAction(event -> {
             try {
+                IRepository<Masina> dbrepositoryMasina = new MasiniDbRepository();
+
+                ((MasiniDbRepository) dbrepositoryMasina).connectToDb();
+
+                repositoryMasina.setAll(dbrepositoryMasina.getAll());
+
                 masinaService.remove(Integer.parseInt(textFieldId.getText()));
                 masini.setAll(masinaService.getAll());
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         });
 
@@ -139,10 +159,13 @@ public class JavaFXApplication extends Application
             try {
 
                 IRepository<domeniu.Masina> dbrepositoryMasina = new MasiniDbRepository();
+                IRepository<domeniu.Inchiriere> dbrepositoryInchiriere = new InchirieriDbRepository();
 
                 ((MasiniDbRepository) dbrepositoryMasina).connectToDb();
+                ((InchirieriDbRepository) dbrepositoryInchiriere).connectToDb();
 
                 repositoryMasina.setAll(dbrepositoryMasina.getAll());
+                repositoryInchiriere.setAll(dbrepositoryInchiriere.getAll());
 
                 Masina masina = masinaService.readMasina(Integer.parseInt(textFieldIdMasina.getText()));
 
@@ -184,9 +207,9 @@ public class JavaFXApplication extends Application
         buttonStergeInchiriere.setOnAction(event ->
         {
             try {
-                IRepository<Inchiriere> dbrepositoryInchiriere = new InchirieriDbRepository();
+                InchirieriDbRepository dbrepositoryInchiriere = new InchirieriDbRepository();
 
-                ((InchirieriDbRepository) dbrepositoryInchiriere).connectToDb();
+                dbrepositoryInchiriere.connectToDb();
 
                 repositoryInchiriere.setAll(dbrepositoryInchiriere.getAll());
 
@@ -194,6 +217,8 @@ public class JavaFXApplication extends Application
                 inchirieri.setAll(inchiriereService.getAll());
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (DuplicateEntityException e) {
+                throw new RuntimeException(e);
             }
 
         });
@@ -219,7 +244,7 @@ public class JavaFXApplication extends Application
                     .collect(Collectors.groupingBy(Inchiriere::getMasina, Collectors.counting()));
             masiniCuNrInchirieri.entrySet().stream()
                     .collect(Collectors.toMap(entry -> entry.getKey().getMarca() + ", " + entry.getKey().getModel(),
-                            Map.Entry::getValue, Long::sum)) // combinarea valorilor duplicate
+                            Map.Entry::getValue, Long::sum))
                     .entrySet().stream()
                     .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                     .forEach(entry -> {

@@ -58,7 +58,7 @@ public class MainClass
         Consola consola = new Consola(inchiriereService, masinaService);
         JavaFXApplication javaFXApplication = new JavaFXApplication();
 
-        javaFXApplication.main(args);
+//        javaFXApplication.main(args);
         consola.runMenu();
 
     }

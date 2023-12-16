@@ -3,12 +3,13 @@ import org.junit.Test;
 import repository.DuplicateEntityException;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 
 public class TestAll
 {
     @Test
-    public void testAll() throws DuplicateEntityException, ParseException, IOException {
+    public void testAll() throws DuplicateEntityException, ParseException, IOException, SQLException {
         TestInchiriere testInchiriere = new TestInchiriere();
         testInchiriere.getGetteri();
         testInchiriere.getSetteri();

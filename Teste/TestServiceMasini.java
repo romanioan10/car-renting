@@ -7,6 +7,7 @@ import repository.MemoryRepository;
 import service.MasinaService;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class TestServiceMasini
@@ -15,14 +16,14 @@ public class TestServiceMasini
     }
 
     @Test
-    public void testAdd() throws DuplicateEntityException, IOException {
+    public void testAdd() throws DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Masina> masinaMemoryRepository = new MemoryRepository<Masina>();
         MasinaService masinaService = new MasinaService(masinaMemoryRepository);
         masinaService.add(1, "audi", "a4");
         assert masinaService.size() == 1;
     }
     @Test
-    public void testModify() throws DuplicateEntityException, IOException {
+    public void testModify() throws DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Masina> masinaMemoryRepository = new MemoryRepository<Masina>();
         MasinaService masinaService = new MasinaService(masinaMemoryRepository);
         masinaService.add(1, "audi", "a4");
@@ -32,7 +33,7 @@ public class TestServiceMasini
         assert masinaVerif == masina;
     }
 
-    public void testRemove() throws DuplicateEntityException, IOException {
+    public void testRemove() throws DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Masina> masinaMemoryRepository = new MemoryRepository<Masina>();
         MasinaService masinaService = new MasinaService(masinaMemoryRepository);
         masinaService.add(1, "audi", "a4");
@@ -40,7 +41,7 @@ public class TestServiceMasini
         assert masinaService.size() == 0;
     }
 
-    public void testReadMasina() throws DuplicateEntityException, IOException {
+    public void testReadMasina() throws DuplicateEntityException, IOException, SQLException {
         MemoryRepository<Masina> masinaMemoryRepository = new MemoryRepository<Masina>();
         MasinaService masinaService = new MasinaService(masinaMemoryRepository);
         masinaService.add(1,"bmw", "m3");

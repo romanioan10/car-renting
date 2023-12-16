@@ -6,6 +6,8 @@ import repository.DuplicateEntityException;
 import repository.IRepository;
 
 import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.time.LocalDate;
 import java.util.Map;
@@ -25,7 +27,7 @@ public class InchiriereService
         return repository.size();
     }
 
-    public void add(int id, Masina masina, LocalDate dataInceput, LocalDate dataSfarsit) throws DuplicateEntityException, IOException {
+    public void add(int id, Masina masina, LocalDate dataInceput, LocalDate dataSfarsit) throws DuplicateEntityException, IOException, SQLException {
         repository.add(new Inchiriere(id, masina, dataInceput, dataSfarsit));
     }
 
@@ -42,22 +44,21 @@ public class InchiriereService
 //            throw new IllegalArgumentException("inchirierea nu exista");
 //    }
 
-    public void modify(int id, Inchiriere inchiriere) throws IOException
-    {
+    public void modify(int id, Inchiriere inchiriere) throws IOException, DuplicateEntityException {
 
         if(readInchiriere(id) != null)
             repository.modify(id, inchiriere);
         else
-            throw new IllegalArgumentException("inchirierea nu exista");
+            throw new DuplicateEntityException("inchirierea nu exista");
     }
 
 
 
-    public void remove(int id) throws IOException {
+    public void remove(int id) throws IOException, DuplicateEntityException {
         if(readInchiriere(id) != null)
             repository.remove(id);
         else
-            throw new IllegalArgumentException("inchirierea nu exista");
+            throw new DuplicateEntityException("inchirierea nu exista");
     }
 
     public Inchiriere readInchiriere(int id)

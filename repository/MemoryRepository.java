@@ -3,6 +3,7 @@ package repository;
 import domeniu.Entitate;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 
 public class MemoryRepository<T extends Entitate> implements IRepository<T>
@@ -15,7 +16,7 @@ public class MemoryRepository<T extends Entitate> implements IRepository<T>
     List<T> entitati =  new ArrayList<T>();
 
     @Override
-    public void add(T entitate) throws DuplicateEntityException, IOException {
+    public void add(T entitate) throws IOException, SQLException {
         if(entitate == null)
         {
             throw new IllegalArgumentException("entitatea nu poate fi null");
@@ -23,7 +24,7 @@ public class MemoryRepository<T extends Entitate> implements IRepository<T>
 
         if(find(entitate.getId()) != null)
         {
-            throw new DuplicateEntityException("entitatea deja exista");
+            throw new IllegalArgumentException("entitatea deja exista");
         }
 
         entitati.add(entitate);

@@ -5,6 +5,7 @@
     import repository.IRepository;
 
     import java.io.IOException;
+    import java.sql.SQLException;
     import java.util.Collection;
 
 
@@ -22,8 +23,9 @@
             return repository.size();
         }
 
-        public void add(int id, String marca, String model) throws DuplicateEntityException, IOException {
-            repository.add(new Masina(id, marca, model));
+        public void add(int id, String marca, String model) throws IOException, SQLException
+        {
+                repository.add(new Masina(id, marca, model));
         }
 
     //    public void modify(int id, String marcaNoua, String modelNou)
@@ -38,15 +40,18 @@
     //            throw new IllegalArgumentException("masina nu exista");
     //}
 
-        public void modify(int id, Masina masinaNoua) throws IOException
-        {
+        public void modify(int id, Masina masinaNoua) throws IOException {
             if(readMasina(id) != null)
                 repository.modify(id, masinaNoua);
             else
                 throw new IllegalArgumentException("masina nu exista");
         }
-        public void remove(int id) throws IOException {
-            repository.remove(id);
+        public void remove(int id) throws IOException
+        {
+            if(readMasina(id) != null)
+                repository.remove(id);
+            else
+                throw new IllegalArgumentException("masina nu exista");
         }
 
         public Collection<Masina> getAll()

@@ -15,7 +15,7 @@ public class MasiniDbRepository extends MemoryRepository<Masina> implements IDbR
 
     private Connection connection;
 
-    public MasiniDbRepository() throws SQLException, DuplicateEntityException, IOException {
+    public MasiniDbRepository() throws SQLException, IOException {
         connectToDb();
         //createTable();
         insertRandomData();
@@ -46,9 +46,7 @@ public class MasiniDbRepository extends MemoryRepository<Masina> implements IDbR
                 this.clear();
                 connection.close();
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -64,18 +62,41 @@ public class MasiniDbRepository extends MemoryRepository<Masina> implements IDbR
     }
 
 
-    public void add(Masina entitate) throws DuplicateEntityException, IOException {
+    public void add(Masina entitate) throws IOException, SQLException {
+        if(entitate == null)
+        {
+            throw new IllegalArgumentException("entitatea nu poate fi null");
+        }
+
+        if(find(entitate.getId()) != null)
+        {
+            throw new IllegalArgumentException("entitatea deja exista");
+        }
+
         try (PreparedStatement statement = connection.prepareStatement("INSERT INTO masini VALUES (?, ?, ?)")) {
             statement.setInt(1, entitate.getId());
             statement.setString(2, entitate.getMarca());
             statement.setString(3, entitate.getModel());
             statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException e)
+        {
+            throw new SQLException(e);
         }
+
     }
 
-    public void modify(int id, Masina entitate) throws IOException {
+    public void modify(int id, Masina entitate) throws IOException
+    {
+        if(entitate == null)
+        {
+            throw new IllegalArgumentException("entitatea nu poate fi null");
+        }
+
+        if(find(entitate.getId()) == null)
+        {
+            throw new IllegalArgumentException("entitatea nu exista");
+        }
+
         try (PreparedStatement statement = connection.prepareStatement("UPDATE masini SET marca = ?, model = ? WHERE id = ?")) {
             statement.setString(1, entitate.getMarca());
             statement.setString(2, entitate.getModel());
@@ -86,7 +107,10 @@ public class MasiniDbRepository extends MemoryRepository<Masina> implements IDbR
         }
     }
 
-    public void remove(int id) throws IOException {
+    public void remove(int id) throws IOException
+    {
+
+
         try (PreparedStatement statement = connection.prepareStatement("DELETE FROM masini WHERE id = ?")) {
             statement.setInt(1, id);
             statement.executeUpdate();
@@ -110,7 +134,7 @@ public class MasiniDbRepository extends MemoryRepository<Masina> implements IDbR
         return masini;
     }
 
-    public void insertRandomData() throws DuplicateEntityException, IOException {
+    public void insertRandomData() throws IOException, SQLException {
         if(getAll().size() == 0)
         {
             Random random = new Random();

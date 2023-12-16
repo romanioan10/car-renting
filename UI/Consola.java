@@ -7,6 +7,7 @@ import service.InchiriereService;
 import service.MasinaService;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class Consola
         System.out.println("0. Iesire");
     }
 
-    public void runMenu() throws DuplicateEntityException, IOException{
+    public void runMenu() throws DuplicateEntityException, IOException, SQLException {
         while (true)
         {
             printMenu();
@@ -59,11 +60,7 @@ public class Consola
                         String model = scanner.next();
                         masinaService.add(id, marca, model);
                     }
-                    catch(DuplicateEntityException ex)
-                    {
-                        System.out.println(ex.toString());
-                    }
-                    catch (Exception ex)
+                    catch(Exception ex)
                     {
                         System.out.println(ex.toString());
                     }
@@ -158,6 +155,7 @@ public class Consola
                     {
                         System.out.println(ex.toString());
                     }
+
                     break;
                 }
                 case "3":

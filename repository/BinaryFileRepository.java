@@ -18,7 +18,7 @@ public class BinaryFileRepository<T extends Entitate & Serializable> implements 
     }
 
     @Override
-    public void add(T entity) throws DuplicateEntityException, IOException
+    public void add(T entity) throws IOException
     {
         List<T> entities = loadEntities();
         if (entity == null)
@@ -28,7 +28,7 @@ public class BinaryFileRepository<T extends Entitate & Serializable> implements 
 
         if (find(entity.getId()) != null)
         {
-            throw new DuplicateEntityException("Entitatea deja există");
+            throw new IllegalArgumentException("Entitatea deja există");
         }
 
         entities.add(entity);
