@@ -39,7 +39,8 @@ public class Settings {
         }
     }
 
-    public static synchronized Settings getInstance() {
+    public static synchronized Settings getInstance()
+    {
         Properties properties = loadSettings();
         instance = new Settings(properties.getProperty("repo_type"), properties.getProperty("domeniu.Masina"), properties.getProperty("domeniu.Inchiriere"));
         return instance;

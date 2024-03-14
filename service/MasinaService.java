@@ -23,10 +23,7 @@
             return repository.size();
         }
 
-        public void add(int id, String marca, String model) throws IOException, SQLException
-        {
-                repository.add(new Masina(id, marca, model));
-        }
+
 
     //    public void modify(int id, String marcaNoua, String modelNou)
     //    {
@@ -64,4 +61,7 @@
             return repository.find(id);
         }
 
+        public void add(int id, String marca, String model) throws SQLException, IOException {
+            repository.add(new Masina(id, marca, model));
+        }
     }

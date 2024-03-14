@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.util.Objects;
 
 
-
 public class MainClass
 {
     public static void main(String[] args) throws repository.DuplicateEntityException, IOException, ParseException, SQLException {
@@ -58,7 +57,7 @@ public class MainClass
         Consola consola = new Consola(inchiriereService, masinaService);
         JavaFXApplication javaFXApplication = new JavaFXApplication();
 
-//        javaFXApplication.main(args);
+        javaFXApplication.main(args);
         consola.runMenu();
 
     }
